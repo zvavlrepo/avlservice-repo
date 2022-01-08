@@ -1,8 +1,18 @@
 def versionNumber() {
-        def major = 1
-        def minor = currentBuild.number - 1
-        def nextVersion = "${major}.${minor}"
-        nextVersion
+    def lastSuccessfulBuildNumber = 0
+    def build = currentBuild.previousBuild
+    while (build != null) {
+        if (build.result == "SUCCESS")
+        {
+            lastSuccessfulBuildNumber = build.number as Integer
+            break
+        }
+            build = build.previousBuild
+    }
+    def major = 1
+    def minor = lastSuccessfulBuildNumber
+    def nextVersion = "v${major}.${minor}"
+    nextVersion
     }
 
 pipeline {
