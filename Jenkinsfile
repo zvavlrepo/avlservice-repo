@@ -8,6 +8,7 @@ pipeline {
         stage('Build Images Stage') {
             steps {
                 sh "docker build -t $imagename1 ./service1"
+                echo "build successful on $imagename1"
             }
         }
     }
