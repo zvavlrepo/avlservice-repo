@@ -1,9 +1,13 @@
 pipeline {
+    enviroment{
+        imagename1 = "avlserviceimage1"
+        imagename2 = "avlserviceimage2"
+    }
     agent any 
     stages {
-        stage('Test Stage') {
+        stage('Build Images Stage') {
             steps {
-                echo 'Hello world!!!!!!' 
+                sh "docker build -t $imagename1 ./service1"
             }
         }
     }
