@@ -2,7 +2,7 @@ pipeline {
     environment {
         imagename1 = "avlserviceimage1"
         imagename2 = "avlserviceimage2"
-        versionnumber = $((BUILD_NUMBER - 1))
+        versionnumber = ${currentBuild.number - 1}
     }
     agent any 
     stages {
