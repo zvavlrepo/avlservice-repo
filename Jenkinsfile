@@ -2,7 +2,7 @@ pipeline {
     environment {
         imagename1 = "avlserviceimage1"
         imagename2 = "avlserviceimage2"
-        versionnumber = $versionNumber
+        versionnumber = params.versionNumber
     }
     agent any 
     stages {
