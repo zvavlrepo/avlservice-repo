@@ -1,16 +1,15 @@
 def versionNumber() {
-    def lastSuccessfulBuildNumber = 0
+    def successBuildCounter = 0
     def build = currentBuild.previousBuild
     while (build != null) {
         if (build.result == "SUCCESS")
         {
-            lastSuccessfulBuildNumber = build.number as Integer
-            break
+            successBuildCounter = successBuildCounter + 1
         }
             build = build.previousBuild
     }
     def major = 1
-    def minor = lastSuccessfulBuildNumber
+    def minor = successBuildCounter
     def nextVersion = "v${major}.${minor}"
     nextVersion
     }
