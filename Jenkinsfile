@@ -9,6 +9,8 @@ pipeline {
             steps {
                 sh "docker build -t $imagename1 ./service1"
                 echo "build successful on $imagename1"
+                sh "docker build -t $imagename2 ./service2"
+                echo "build successful on $image2"
             }
         }
     }
