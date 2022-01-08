@@ -2,6 +2,7 @@ pipeline {
     environment {
         imagename1 = "avlserviceimage1"
         imagename2 = "avlserviceimage2"
+        versionnumber = $versionNumber
     }
     agent any 
     stages {
@@ -24,7 +25,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
-                echo "Build number is $BUILD_NUMBER"
+                echo "version number is $versionnumber"
             }
         }
     }
