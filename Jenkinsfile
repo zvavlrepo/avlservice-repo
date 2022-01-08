@@ -15,12 +15,16 @@ pipeline {
             }
         }
 
-        stage('Unit Test') {
-            echo "Unit test passed"
+        stage('Unit test') {
+            steps {
+                echo "Unit test passed"
+            }
         }
 
-        stage('Integration Test') {
-            echo "Integration test passed"
+        stage('Integration test') {
+            steps {
+                echo "Integration test passed"
+            }
         }
     }
 }
