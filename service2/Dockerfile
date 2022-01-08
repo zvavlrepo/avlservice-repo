@@ -1,0 +1,15 @@
+FROM python:3.11-rc-alpine
+
+RUN apk add curl \
+    && curl -sL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog > /usr/bin/fwatchdog \
+    && chmod +x /usr/bin/fwatchdog 
+
+RUN pip install --upgrade pip
+COPY requirements.txt /
+RUN pip install -r requirements.txt
+
+ENV fprocess="python entrypoint.py"
+COPY entrypoint.py /
+
+EXPOSE 8080
+CMD [ "fwatchdog" ]
