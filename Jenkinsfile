@@ -21,7 +21,7 @@ pipeline {
         imagename2 = "avlserviceimage2"
     }
     agent any 
-    stages {
+    stages 
 
         stage('Build Images') {
             steps {
