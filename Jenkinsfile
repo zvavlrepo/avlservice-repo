@@ -10,6 +10,10 @@ def nextVersionFromGit(scope) {
                 nextVersion = "${major + 1}.0"
                 break
             case 'minor':
+                if (major == 0){
+                    major = 1
+                    minor = -1
+                }
                 nextVersion = "${major}.${minor + 1}"
                 break
         }
