@@ -31,7 +31,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
-                echo "version number is ${nextVersionFromGit('minor')}"
+                echo "version number ${nextVersionFromGit('minor')}"
             }
         }
     }
