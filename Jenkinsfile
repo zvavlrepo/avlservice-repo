@@ -1,5 +1,5 @@
 pipeline {
-    enviroment{
+    enviroment {
         imagename1 = "avlserviceimage1"
         imagename2 = "avlserviceimage2"
     }
