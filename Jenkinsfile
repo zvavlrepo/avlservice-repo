@@ -2,14 +2,6 @@ def nextVersionFromGit(scope) {
         def latestVersion = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 --match "v[0-9]*" 2> /dev/null || echo 0.0').trim()
         def (major, minor) = latestVersion.replace('v', '').tokenize('.').collect { it.toInteger() }
         def nextVersion = "${major}.${minor}"
-        /*switch (scope) {
-            case 'major':
-                nextVersion = "${major + 1}.${minor}"
-                break
-            case 'minor':
-                nextVersion = "${major}.${minor + 1}"
-                break
-        }*/
         nextVersion
     }
 
