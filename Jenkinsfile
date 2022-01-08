@@ -10,7 +10,7 @@ def versionNumber() {
             build = build.previousBuild
     }
     def major = 1
-    def minor = lastSuccessfulBuildNumber
+    def minor = $lastSuccessfulBuildNumber
     def nextVersion = "v${major}.${minor}"
     nextVersion
     }
@@ -21,7 +21,7 @@ pipeline {
         imagename2 = "avlserviceimage2"
     }
     agent any 
-    stages 
+    stages {
 
         stage('Build Images') {
             steps {
