@@ -1,7 +1,7 @@
 def versionNumber() {
         def buildNumber = currentBuild.number
         def major = 1
-        def minor = ${buildNumer} - 1
+        def minor = $buildNumber - 1
         def nextVersion = "${major}.${minor}"
         nextVersion
     }
