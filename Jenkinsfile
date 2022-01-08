@@ -1,6 +1,7 @@
-def nextVersionFromGit(scope) {
-        def latestVersion = sh(returnStdout: true, script: 'git describe --tags --abbrev=0 --match "v[0-9]*" 2> /dev/null || echo 0.0').trim()
-        def (major, minor) = latestVersion.replace('v', '').tokenize('.').collect { it.toInteger() }
+def versionNumber() {
+        def buildNumber = currentBuild.number
+        def major = 1
+        def minor = buildNumer - 1
         def nextVersion = "${major}.${minor}"
         nextVersion
     }
@@ -31,7 +32,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
-                echo "version number ${nextVersionFromGit('minor')}"
+                echo "version number ${versionNumber()}"
             }
         }
     }
