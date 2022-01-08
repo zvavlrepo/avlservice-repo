@@ -5,6 +5,11 @@ pipeline {
     }
     agent any 
     stages {
+        stage('Git checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build Images Stage') {
             steps {
                 sh "docker build -t $imagename1 ./service1"
