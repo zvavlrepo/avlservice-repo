@@ -24,6 +24,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
+                echo "Build number is $BUILD_NUMBER"
             }
         }
     }
