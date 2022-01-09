@@ -42,7 +42,7 @@ pipeline {
         stage('Push to DockerHub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-login', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USR')]) {               
-                    sh "docker login -u $DOCKER_REGISTRY_USR" -p "$DOCKER_REGISTRY_PWD"
+                    sh "docker login -u $DOCKER_REGISTRY_USR -p $DOCKER_REGISTRY_PWD"
                     sh "echo login successful"
                     sh "docker push $imagename1${nextVersionNumber()}"
                     sh "$imagename1 successfuly pushed to DockerHub"
