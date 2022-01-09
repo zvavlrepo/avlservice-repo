@@ -45,9 +45,9 @@ pipeline {
                     sh "docker login -u $DOCKER_REGISTRY_USR -p $DOCKER_REGISTRY_PWD"
                     sh "echo login successful"
                     sh "docker push $imagename1${nextVersionNumber()}"
-                    sh "$imagename1 successfuly pushed to DockerHub"
+                    sh "echo $imagename1 successfuly pushed to DockerHub"
                     sh "docker push $imagename2${nextVersionNumber()}"
-                    sh "$imagename2 successfuly pushed to DockerHub"
+                    sh "echo $imagename2 successfuly pushed to DockerHub"
                 }
             }
         }
