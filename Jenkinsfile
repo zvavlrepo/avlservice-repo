@@ -1,7 +1,7 @@
 def nextVersionNumber() {
     def versionNumber = sh(script: 'cat version.txt', returnStdout: true)
     def (major, minor) = versionNumber.replace('v', '').tokenize('.').collect { it.toInteger() }
-    nextVersion = "${major}.${minor + 1}"
+    nextVersion = "v${major}.${minor + 1}"
     nextVersion
     }
 
