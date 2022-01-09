@@ -12,8 +12,9 @@ def nextVersionNumber() {
 
 pipeline {
     environment {
-        imagename1 = "avlserviceimage1"
-        imagename2 = "avlserviceimage2"
+        imagename1 = "zvavltest/avlservice-repo:avlserviceimage1"
+        imagename2 = "zvavltest/avlservice-repo:avlserviceimage2"
+        dockerhub_creds = credentials('dockerhub-login')
     }
     agent any 
     stages {
@@ -37,6 +38,14 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                /*sh "echo $dockerhub_creds | docker login -u $dockerhub_creds_USR --password-stdin"
+                sh "docker push $imagename1${nextVersionNumber()}"*/
+                sh "echo $imagename1${nextVersionNumber()}"
             }
         }
 
