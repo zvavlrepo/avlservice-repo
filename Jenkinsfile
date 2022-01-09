@@ -1,17 +1,7 @@
 def versionNumber() {
-    def successBuildCounter = 0
-    def build = currentBuild.previousBuild
-    while (build != null) {
-        if (build.result == "SUCCESS")
-        {
-            successBuildCounter = successBuildCounter + 1
-        }
-            build = build.previousBuild
-    }
-    def major = 1
-    def minor = successBuildCounter
-    def nextVersion = "v${major}.${minor}"
-    nextVersion
+    def versionNumber = sh(script: 'cat version.txt', returnStdout: true)
+    
+    versionNumber
     }
 
 pipeline {
@@ -43,5 +33,11 @@ pipeline {
                 echo "version number ${versionNumber()}"
             }
         }
+
+        /*stage('Versioning') {
+            steps {
+                
+            }
+        }*/
     }
 }
