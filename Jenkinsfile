@@ -45,7 +45,7 @@ pipeline {
                 withCredentials([gitUsernamePassword(credentialsId: 'github-access', gitToolName: 'Default')]) {
                     sh "echo ${nextVersionNumber()} > version.txt"
                     sh "git commit -a -m 'Automatic versioning'"
-                    sh "git push"
+                    sh "git push origin HEAD:master --force"
                     echo "Git version updated"
                 }
             }
