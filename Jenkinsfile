@@ -1,5 +1,6 @@
 def nextVersionNumber() {
     def versionNumber = sh(script: 'cat version.txt', returnStdout: true)
+    println versionNumber
     def (major, minor) = versionNumber.replace('v', '').tokenize('.').collect { it.toInteger() }
     if (versionNumber == "v0.0") {
         nextVersion = "v1.0"
@@ -41,10 +42,12 @@ pipeline {
 
         stage('Versioning') {
             steps {
-                sh "echo ${nextVersionNumber()} > version.txt"
-                sh "git commit -a -m 'Automatic versioning'"
-                sh "git push"
-                echo "Git version updated"
+                withCredentials([gitusernamePassword(credentialsId: 'github-access', gitToolName: 'git-tool')]) {
+                    sh "echo ${nextVersionNumber()} > version.txt"
+                    sh "git commit -a -m 'Automatic versioning'"
+                    sh "git push"
+                    echo "Git version updated"
+                }
             }
         }
     }
