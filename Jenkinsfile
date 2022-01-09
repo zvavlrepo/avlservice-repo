@@ -42,7 +42,7 @@ pipeline {
 
         stage('Versioning') {
             steps {
-                withCredentials([gitusernamePassword(credentialsId: 'github-access', gitToolName: 'git-tool')]) {
+                withCredentials([gitUsernamePassword(credentialsId: 'github-access', gitToolName: 'Default')]) {
                     sh "echo ${nextVersionNumber()} > version.txt"
                     sh "git commit -a -m 'Automatic versioning'"
                     sh "git push"
