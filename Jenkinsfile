@@ -39,10 +39,13 @@ pipeline {
             }
         }
 
-        /*stage('Versioning') {
+        stage('Versioning') {
             steps {
-                
+                sh "echo ${nextVersionNumber()} > version.txt"
+                sh "git commit -a -m 'Automatic versioning'"
+                sh "git push"
+                echo "Git version updated"
             }
-        }*/
+        }
     }
 }
