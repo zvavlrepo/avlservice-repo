@@ -1,7 +1,8 @@
-def versionNumber() {
+def nextVersionNumber() {
     def versionNumber = sh(script: 'cat version.txt', returnStdout: true)
-    
-    versionNumber
+    def (major, minor) = versionNumber.replace('v', '').tokenize'.'.collect { it.toInteger() }
+    nextVersion = "${major}.${minor + 1}"
+    nextVersion
     }
 
 pipeline {
@@ -30,7 +31,7 @@ pipeline {
         stage('Integration test') {
             steps {
                 echo "Integration test passed"
-                echo "version number ${versionNumber()}"
+                echo "next version number ${nextVersionNumber()}"
             }
         }
 
