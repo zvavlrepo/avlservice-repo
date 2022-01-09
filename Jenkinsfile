@@ -48,6 +48,12 @@ pipeline {
                     sh "echo $imagename1 successfuly pushed to DockerHub"
                     sh "docker push $imagename2${nextVersionNumber()}"
                     sh "echo $imagename2 successfuly pushed to DockerHub"
+                    sh "echo cleanup"
+                    sh "docker logout"
+                    sh "echo DockerHub logout successful"
+                    sh "docker image rm $imagename1${nextVersionNumber()}"
+                    sh "docker image rm $imagename2${nextVersionNumber()}"
+                    sh "echo images removed from local machine"
                 }
             }
         }
