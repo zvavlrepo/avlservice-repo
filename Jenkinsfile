@@ -43,9 +43,11 @@ pipeline {
 
         stage('Push to DockerHub') {
             steps {
-                /*sh "echo $dockerhub_creds | docker login -u $dockerhub_creds_USR --password-stdin"
-                sh "docker push $imagename1${nextVersionNumber()}"*/
-                sh "echo $imagename1${nextVersionNumber()}"
+                sh "echo $dockerhub_creds | docker login -u $dockerhub_creds_USR --password-stdin"
+                sh "docker push $imagename1${nextVersionNumber()}"
+                sh "$imagename1 successfuly pushed to DockerHub"
+                sh "docker push $imagename2${nextVersionNumber()}"
+                sh "$imagename2 successfuly pushed to DockerHub"
             }
         }
 
