@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "start"
 # variables
-IMAGE_1_NAME="avlserviceimage1"
-IMAGE_2_NAME="avlserviceimage2"
+IMAGE_1_NAME="zvavltest/avlservice-repo:avlserviceimage1"
+IMAGE_2_NAME="zvavltest/avlservice-repo:avlserviceimage2"
 CONTAINER_1_NAME=""
 CONTAINER_2_NAME=""
 NETWORK_NAME="" 
@@ -79,10 +79,13 @@ fi
 docker network create --driver bridge $NETWORK_NAME 2>/dev/null || true
 
 # service 1 start
-docker run -d --name $CONTAINER_1_NAME --network $NETWORK_NAME $IMAGE_1_NAME:$SERVICE1_VERSION
+docker run -d --name $CONTAINER_1_NAME --network $NETWORK_NAME $IMAGE_1_NAME$SERVICE1_VERSION
 echo "service $CONTAINER_1_NAME started with $IMAGE_1_NAME:$SERVICE1_VERSION on network $NETWORK_NAME"
 # service 2 start
-docker run -dp $PORT_RANGE:8080 --name $CONTAINER_2_NAME --env SERVICE1_NAME=$CONTAINER_1_NAME --network $NETWORK_NAME $IMAGE_2_NAME:$SERVICE2_VERSION
+docker run -dp $PORT_RANGE:8080 --name $CONTAINER_2_NAME --env SERVICE1_NAME=$CONTAINER_1_NAME --network $NETWORK_NAME $IMAGE_2_NAME$SERVICE2_VERSION
 echo "service $CONTAINER_2_NAME started with $IMAGE_2_NAME:$SERVICE2_VERSION on network $NETWORK_NAME"
+
+# prune unused images
+docker image prune -a -f
 
 echo "end"
