@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avlservice2
+  labels:
+    app: avlservice2
+spec:
+  selector:
+    matchLabels:
+      app: avlservice2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: avlservice2
+    spec:
+      containers:
+      - name: avlservice2
+        image: zvavltest/avlservice-repo:avlserviceimage2v1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SERVICE1_NAME
+          value: avlservice1
