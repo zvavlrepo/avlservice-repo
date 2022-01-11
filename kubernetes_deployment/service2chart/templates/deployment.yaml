@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "service2chart.fullname" . }}
+  name: avlservice2
   labels:
-    {{- include "service2chart.labels" . | nindent 4 }}
+    app: avlservice2
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "service2chart.selectorLabels" . | nindent 6 }}
+      app: avlservice2
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "service2chart.selectorLabels" . | nindent 8 }}
+        app: avlservice2
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -28,7 +28,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: avlservice2
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -40,16 +40,16 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
-          livenessProbe:
-            initialDelaySeconds: 10
-            httpGet:
-              path: /
-              port: 8080
-          readinessProbe:
-            initialDelaySeconds: 10
-            httpGet:
-              path: /
-              port: 8080
+          # livenessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: /
+          #     port: 8080
+          # readinessProbe:
+          #   initialDelaySeconds: 10
+          #   httpGet:
+          #     path: /
+          #     port: 8080
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -46,8 +46,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "service2chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "service2chart.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app: avlservice2
 {{- end }}
 
 {{/*
