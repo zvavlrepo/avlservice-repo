@@ -48,6 +48,7 @@ jobs:
          docker build -t ${{ env.IMAGENAME2 }}${{steps.get_version.outputs.VERSION}} ./service2
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: 'Unit test'
@@ -56,6 +57,7 @@ jobs:
         run: echo "Integration test passed"
   
   push:
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
       - name: 'Login to Docker Hub'
