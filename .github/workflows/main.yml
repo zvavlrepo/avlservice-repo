@@ -39,7 +39,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+        run: |
+          echo $GITHUB_REF 
+          echo $GITHUB_REF | cut -d / -f 3
+          echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
         
       - name: Build Docker images
         id: docker_build
