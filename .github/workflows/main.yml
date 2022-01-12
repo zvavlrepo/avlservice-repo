@@ -32,9 +32,8 @@ jobs:
       - name: Get version
         id: get_version
         run: |
-          echo $GITHUB_REF 
-          echo $GITHUB_REF | cut -d / -f 3
-          echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+          echo $(git describe --tags --abbrev=0)
+          echo ::set-output name=VERSION::$(git describe --tags --abbrev=0)
         
       - name: Build Docker images
         id: docker_build
@@ -65,7 +64,7 @@ jobs:
         run: |
           echo $GITHUB_REF 
           echo $GITHUB_REF | cut -d / -f 3
-          echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+          echo ::set-output name=VERSION::$(git describe --tags --abbrev=0)
       - name: 'Push to DockerHub'
         run: |
           docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
