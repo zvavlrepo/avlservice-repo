@@ -45,7 +45,7 @@ jobs:
         id: docker_build
         run: |
          docker build -t ${{ env.IMAGENAME1 }}${{steps.get_version.outputs.VERSION}} ./service1
-         docker build -t ${{ enc.IMAGENAME2 }}${{steps.get_version.outputs.VERSION}} ./service2
+         docker build -t ${{ env.IMAGENAME2 }}${{steps.get_version.outputs.VERSION}} ./service2
 
   test:
     runs-on: ubuntu-latest
