@@ -31,9 +31,11 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: |
-          echo $(git describe --tags --abbrev=0)
-          echo ::set-output name=VERSION::$(git describe --tags --abbrev=0)
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: v1.0
+        run:
+          echo ::set-output name=VERSION::tag
         
       - name: Build Docker images
         id: docker_build
@@ -61,10 +63,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Get version
         id: get_version
-        run: |
-          echo $GITHUB_REF 
-          echo $GITHUB_REF | cut -d / -f 3
-          echo ::set-output name=VERSION::$(git describe --tags --abbrev=0)
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: v1.0
+        run:
+          echo ::set-output name=VERSION::tag
       - name: 'Push to DockerHub'
         run: |
           docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
