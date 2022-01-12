@@ -34,14 +34,12 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
           fallback: v1.0
-        run:
-          echo ::set-output name=VERSION::tag
         
       - name: Build Docker images
         id: docker_build
         run: |
-         docker build -t ${{ env.IMAGENAME1 }}${{steps.get_version.outputs.VERSION}} ./service1
-         docker build -t ${{ env.IMAGENAME2 }}${{steps.get_version.outputs.VERSION}} ./service2
+         docker build -t ${{ env.IMAGENAME1 }}${{steps.get_version.outputs.tag}} ./service1
+         docker build -t ${{ env.IMAGENAME2 }}${{steps.get_version.outputs.tag}} ./service2
 
   test:
     needs: build
@@ -66,11 +64,9 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
           fallback: v1.0
-        run:
-          echo ::set-output name=VERSION::tag
       - name: 'Push to DockerHub'
         run: |
-          docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
-          docker push ${{ env.IMAGENAME2 }}${{ steps.get_version.outputs.VERSION }}
+          docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.tag }}
+          docker push ${{ env.IMAGENAME2 }}${{ steps.get_version.outputs.tag }}
           
           
