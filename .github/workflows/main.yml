@@ -20,7 +20,6 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    id: build
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -30,7 +29,7 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@v2
 
-      - name: Get the version
+      - name: Get version
         id: get_version
         run: |
           echo $GITHUB_REF 
@@ -61,9 +60,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get version
+        id: get_version
+        run: |
+          echo $GITHUB_REF 
+          echo $GITHUB_REF | cut -d / -f 3
+          echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - name: 'Push to DockerHub'
         run: |
-          docker push ${{ env.IMAGENAME1 }}${{ jobs.build.steps.get_version.outputs.VERSION }}
-          docker push ${{ env.IMAGENAME2 }}${{ jobs.build.steps.get_version.outputs.VERSION }}
+          docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
+          docker push ${{ env.IMAGENAME2 }}${{ steps.get_version.outputs.VERSION }}
           
           
