@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Unit test'
-        run: echo "Unit tests passed"
+        run: echo "Unit test passed"
       - name: 'Integration test'
         run: echo "Integration test passed"
   
