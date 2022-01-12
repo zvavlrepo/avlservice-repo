@@ -65,7 +65,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: 'Push to DockerHub'
         run: |
-          docker push ${{ IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
-          docker push ${{ IMAGENAME2 }}${{ steps.get_version.outputs.VERSION }}
+          docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.VERSION }}
+          docker push ${{ env.IMAGENAME2 }}${{ steps.get_version.outputs.VERSION }}
           
           
