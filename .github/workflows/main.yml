@@ -31,15 +31,13 @@ jobs:
 
       - name: Get version
         id: get_version
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: v1.0
+        run: echo "VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
         
       - name: Build Docker images
         id: docker_build
         run: |
-         docker build -t ${{ env.IMAGENAME1 }}${{steps.get_version.outputs.tag}} ./service1
-         docker build -t ${{ env.IMAGENAME2 }}${{steps.get_version.outputs.tag}} ./service2
+         docker build -t ${{ env.IMAGENAME1 }}${{ env.VERSION }} ./service1
+         docker build -t ${{ env.IMAGENAME2 }}${{ env.VERSION }} ./service2
 
   test:
     needs: build
@@ -66,7 +64,7 @@ jobs:
           fallback: v1.0
       - name: 'Push to DockerHub'
         run: |
-          docker push ${{ env.IMAGENAME1 }}${{ steps.get_version.outputs.tag }}
-          docker push ${{ env.IMAGENAME2 }}${{ steps.get_version.outputs.tag }}
+          docker push ${{ env.IMAGENAME1 }}${{ env.VERSION }}
+          docker push ${{ env.IMAGENAME2 }}${{ env.VERSION }}
           
           
