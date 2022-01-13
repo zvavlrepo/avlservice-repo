@@ -33,7 +33,7 @@ jobs:
          docker build -t ${{ env.IMAGENAME2 }}${{ env.VERSION }} ./service2
 
       - name: 'Unit test'
-        run: echo "Unit test passed"
+        run: ./test.sh
 
       - name: 'Integration test'
         run: echo "Integration test passed"
